@@ -10,7 +10,7 @@ public class MainController : MonoBehaviour
     private double lastTimeToNextBeat;
     public List<GameObject> spawnPoints;
     public List<GameObject> launcherPoints;
-    
+
     public List<GameObject> bagPoints;
 
     private double timeToNextBeat;
@@ -33,60 +33,71 @@ public class MainController : MonoBehaviour
         beats = timeInSeconds * bpm / 60.0;
         timeToNextBeat = Mathf.Ceil((float)(beats)) - beats;
 
-        if (lastTimeToNextBeat < timeToNextBeat) {
+        if (lastTimeToNextBeat < timeToNextBeat)
+        {
             currBeat++;
-            if (currBeat%4 == 0){
+            if (currBeat % 4 == 0)
+            {
                 Spawnbaby();
             }
         }
         lastTimeToNextBeat = timeToNextBeat;
-        
+
 
 
         Color col;
         col = launcherPoints[0].GetComponent<SpriteRenderer>().color;
         //Debug.Log(Input.GetKeyDown("a"));
-        if (Input.GetKeyDown("a")){
+        if (Input.GetKeyDown("a"))
+        {
             col.r = 0.8f;
-        } 
-        
-        if (Input.GetKeyUp("a")){
+        }
+
+        if (Input.GetKeyUp("a"))
+        {
             col.r = 0.2f;
         }
         launcherPoints[0].GetComponent<SpriteRenderer>().color = col;
-        
+
         col = launcherPoints[1].GetComponent<SpriteRenderer>().color;
-        if (Input.GetKeyDown("s")){
+        if (Input.GetKeyDown("s"))
+        {
             col.r = 0.8f;
         }
-        if (Input.GetKeyUp("s")){
+        if (Input.GetKeyUp("s"))
+        {
             col.r = 0.2f;
         }
         launcherPoints[1].GetComponent<SpriteRenderer>().color = col;
-        
+
         col = launcherPoints[2].GetComponent<SpriteRenderer>().color;
-        if (Input.GetKeyDown("d")){
+        if (Input.GetKeyDown("d"))
+        {
             col.r = 0.8f;
         }
-        if (Input.GetKeyUp("d")){
+        if (Input.GetKeyUp("d"))
+        {
             col.r = 0.2f;
         }
         launcherPoints[2].GetComponent<SpriteRenderer>().color = col;
     }
 
-    void Spawnbaby(){
-        int bag = Random.Range(0,3);// 9 total
-        GameObject newbaby = Instantiate(baby, spawnPoints[bag%3].transform.position, Quaternion.identity);
+    void Spawnbaby()
+    {
+        int bag = Random.Range(0, 3);// 9 total
+        GameObject newbaby = Instantiate(baby, spawnPoints[bag % 3].transform.position, Quaternion.identity);
         newbaby.GetComponent<BabyController>().bag = bag;
         //Instantiate(baby, midSpawnPoint.transform);
         //Instantiate(baby, rightSpawnPoint.transform);
-        
+
     }
-    
-    public double GetNextBeat(){
+
+    public double GetNextBeat()
+    {
         return timeToNextBeat;
     }
-    public double GetBeat(){
+    public double GetBeat()
+    {
         return beats;
     }
 }
