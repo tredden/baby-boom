@@ -32,7 +32,6 @@ public class MainController : MonoBehaviour
         timeToNextBeat = Mathf.Ceil((float)(beats)) - beats;
 
         if (lastTimeToNextBeat < timeToNextBeat) {
-            Debug.Log(currBeat);
             currBeat++;
             if (currBeat%4 == 0){
                 Spawnbaby();
@@ -44,10 +43,12 @@ public class MainController : MonoBehaviour
 
         Color col;
         col = launcherPoints[0].GetComponent<SpriteRenderer>().color;
-        Debug.Log(Input.GetKeyDown("a"));
+        //Debug.Log(Input.GetKeyDown("a"));
         if (Input.GetKeyDown("a")){
             col.r = 0.8f;
-        } else {
+        } 
+        
+        if (Input.GetKeyUp("a")){
             col.r = 0.2f;
         }
         launcherPoints[0].GetComponent<SpriteRenderer>().color = col;
@@ -55,7 +56,8 @@ public class MainController : MonoBehaviour
         col = launcherPoints[1].GetComponent<SpriteRenderer>().color;
         if (Input.GetKeyDown("s")){
             col.r = 0.8f;
-        } else {
+        }
+        if (Input.GetKeyUp("s")){
             col.r = 0.2f;
         }
         launcherPoints[1].GetComponent<SpriteRenderer>().color = col;
@@ -63,7 +65,8 @@ public class MainController : MonoBehaviour
         col = launcherPoints[2].GetComponent<SpriteRenderer>().color;
         if (Input.GetKeyDown("d")){
             col.r = 0.8f;
-        } else {
+        }
+        if (Input.GetKeyUp("d")){
             col.r = 0.2f;
         }
         launcherPoints[2].GetComponent<SpriteRenderer>().color = col;

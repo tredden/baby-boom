@@ -12,7 +12,10 @@ public class BabyController : MonoBehaviour
     private int beatsToFly;
     private int currBeat;
     private float lastTimeToNextBeat;
+    private float startBeat;
+    private float endBeat;
 
+    Dictionary<int, string> bagToKey = new Dictionary<int, string>();
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +25,17 @@ public class BabyController : MonoBehaviour
         beatsToFly = 4;
         currBeat = -1;
         lastTimeToNextBeat = 0;
-        Debug.Log(startPos + " " + launchPos);
-            
+        
+        
+        startBeat = Mathf.FloorToInt((float)main.GetComponent<MainController>().GetBeat());
+        endBeat = startBeat + beatsToFly;
+        
+        
+        bagToKey.Add(0,"a");
+        bagToKey.Add(1,"s");
+        bagToKey.Add(2,"d");
+
+        //Debug.Log(startPos + " " + launchPos + " | " + startBeat + " " + endBeat);
     }
 
     // Update is called once per frame
@@ -35,7 +47,7 @@ public class BabyController : MonoBehaviour
         transform.GetComponent<SpriteRenderer>().color = newColor;
         
         if (lastTimeToNextBeat < timeToNextBeat) {
-            Debug.Log(currBeat);
+            //Debug.Log(currBeat);
             currBeat++;
         }
         lastTimeToNextBeat = timeToNextBeat;
@@ -43,7 +55,18 @@ public class BabyController : MonoBehaviour
         if (currBeat > beatsToFly){
             Destroy(gameObject);
         }
-        Debug.Log(startPos + " " + launchPos);
+        //Debug.Log(startPos + " " + launchPos);
         transform.position = Vector2.Lerp(startPos, launchPos, (float)currBeat/beatsToFly);
+
+        float acc; // in beats
+        acc = Mathf.Abs((float)main.GetComponent<MainController>().GetBeat() - endBeat);
+        //Debug.Log(acc);
+        if (Input.GetKeyDown(bagToKey[bag])){
+            if (acc < 0.2){
+                Debug.Log("Win");
+            }else{
+                Debug.Log("Lose");
+            }
+        } 
     }
 }
