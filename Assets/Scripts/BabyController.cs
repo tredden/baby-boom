@@ -73,9 +73,10 @@ public class BabyController : MonoBehaviour
                 target.transform.position,
                 Mathf.Sqrt(flyProgress));
 
-            if (flyProgress > 1.2)
+            if (flyProgress > 1)
             {
                 Destroy(gameObject);
+                target.transform.GetChild(0).GetComponent<Animator>().SetTrigger("catchBaby");
             }
         }
         else
