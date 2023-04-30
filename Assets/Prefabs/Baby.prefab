@@ -97,3 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61428daf8657204f87d62af0d4fc6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bag: 0
+  bagPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

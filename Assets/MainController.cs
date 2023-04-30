@@ -11,6 +11,8 @@ public class MainController : MonoBehaviour
     public List<GameObject> spawnPoints;
     public List<GameObject> launcherPoints;
     
+    public List<GameObject> bagPoints;
+
     private double timeToNextBeat;
     private double beats;
     private int currBeat;
