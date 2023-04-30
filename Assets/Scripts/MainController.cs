@@ -8,18 +8,19 @@ public class MainController : MonoBehaviour
     private AudioSource track;
     public double bpm;
     public GameObject baby;
-    private double lastTimeToNextBeat;
     public List<GameObject> spawnPoints;
     public List<GameObject> launcherPoints;
 
     public List<GameObject> bagPoints;
 
+    private double lastTimeToNextBeat;
     private double timeToNextBeat;
     private double beat;
     private int currBeat;
     private GameObject songBeatText;
     private double songLengthBeats;
     public int rows = 1;
+    private static MainController controllerInstance;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,15 @@ public class MainController : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Awake(){
+        DontDestroyOnLoad (this);
+            
+        if (controllerInstance == null) {
+            controllerInstance = this;
+        } else {
+            Destroy(gameObject);
+        }
+    }
     void Update()
     {
         int currentSample = track.timeSamples;
@@ -44,9 +54,9 @@ public class MainController : MonoBehaviour
         if (lastTimeToNextBeat < timeToNextBeat)
         {
             currBeat++;
-            if (currBeat % 1 == 0 && beat + 5 < songLengthBeats)
+            if (currBeat % 2 == 0 && beat + 5 < songLengthBeats)
             {
-                Spawnbaby(Random.Range(0, 3) + 1);
+                Spawnbaby(Mathf.CeilToInt(Mathf.Pow(Random.Range(0.0f,1.0f),2)*3));
             }
         }
         lastTimeToNextBeat = timeToNextBeat;
@@ -91,9 +101,9 @@ public class MainController : MonoBehaviour
     private void SpawnInCol(int col)
     {
         int row = Random.Range(0, rows);
-        int bag = (row * 3 + col) % 3;
-        GameObject newbaby = Instantiate(baby, spawnPoints[bag % 3]
-                                         .transform.position, Quaternion.identity);
+        int bag = row * 3 + col;
+        GameObject newbaby = Instantiate(baby, spawnPoints[col]
+                                        .transform.position, Quaternion.identity);
         newbaby.GetComponent<BabyController>().bag = bag;
     }
 

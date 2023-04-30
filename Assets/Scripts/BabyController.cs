@@ -27,7 +27,8 @@ public class BabyController : MonoBehaviour
         beatsToLaunch = 4;
         inBagBeat = beatsToLaunch + 1;
         target = mainController.bagPoints[bag];
-
+        transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = 
+            target.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color;
         startBeat = Mathf.FloorToInt((float)main.GetComponent<MainController>().GetBeat());
         endBeat = startBeat + beatsToLaunch;
 
