@@ -40,6 +40,33 @@ public class MainController : MonoBehaviour
         }
         lastTimeToNextBeat = timeToNextBeat;
         
+
+
+        Color col;
+        col = launcherPoints[0].GetComponent<SpriteRenderer>().color;
+        Debug.Log(Input.GetKeyDown("a"));
+        if (Input.GetKeyDown("a")){
+            col.r = 0.8f;
+        } else {
+            col.r = 0.2f;
+        }
+        launcherPoints[0].GetComponent<SpriteRenderer>().color = col;
+        
+        col = launcherPoints[1].GetComponent<SpriteRenderer>().color;
+        if (Input.GetKeyDown("s")){
+            col.r = 0.8f;
+        } else {
+            col.r = 0.2f;
+        }
+        launcherPoints[1].GetComponent<SpriteRenderer>().color = col;
+        
+        col = launcherPoints[2].GetComponent<SpriteRenderer>().color;
+        if (Input.GetKeyDown("d")){
+            col.r = 0.8f;
+        } else {
+            col.r = 0.2f;
+        }
+        launcherPoints[2].GetComponent<SpriteRenderer>().color = col;
     }
 
     void Spawnbaby(){
