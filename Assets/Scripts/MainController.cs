@@ -60,7 +60,6 @@ public class MainController : MonoBehaviour
         System.Random prng = new System.Random(song.prngSeed);
 
         // Initialize an array of the number of babies to spawn on each beat
-        Debug.Log(spawnUntil + " " + song.spawnBabyPeriod);
         babiesEachBeat = new int[System.Math.Max(
                 Mathf.CeilToInt(spawnUntil / song.spawnBabyPeriod), 0) + 1];
 
@@ -72,10 +71,9 @@ public class MainController : MonoBehaviour
 
         System.Array.Fill(babiesEachBeat, 3, 0,
                           Mathf.FloorToInt((float)(babiesEachBeat.Length * song.threeBabyDensity)));
-        
-        Debug.Log(string.Join(" ", babiesEachBeat));
+
         shuffle(babiesEachBeat, prng);
-        Debug.Log(string.Join(" ", babiesEachBeat));
+        Debug.Log("Pattern: " + string.Join(" ", babiesEachBeat));
 
         track.Play();
     }
@@ -108,7 +106,6 @@ public class MainController : MonoBehaviour
             if (currBeat % song.spawnBabyPeriod == 0 && beat < spawnUntil)
             {
                 int count = babiesEachBeat[currBeat / song.spawnBabyPeriod];
-                Debug.Log(count);
                 SpawnBabies(count);
                 //SpawnBabies(Mathf.CeilToInt(Mathf.Pow(Random.Range(0.0f,1.0f),2)*3));
             }
