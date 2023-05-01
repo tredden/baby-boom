@@ -32,7 +32,7 @@ public class MainController : MonoBehaviour
     private int spawnBabyPeriod = 2;
 
     // Start is called before the first frame update
-    IEnumerator Start()
+    void Start()
     {
         track = GetComponent<AudioSource>();
         // Get the global variable holder game object
@@ -48,12 +48,12 @@ public class MainController : MonoBehaviour
 
         lastTimeToNextBeat = 0;
         currBeat = -1;
-        //songBeatText = GameObject.Find("SongBeatText");
+        songBeatText = GameObject.Find("Score");
         songLengthBeats = ToBeat(track.clip.samples);
 
         track.Play();
-        yield return new WaitForSeconds(track.clip.length + 1);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Results");
+        
+        
     }
 
     void Update()
@@ -73,6 +73,10 @@ public class MainController : MonoBehaviour
             }
         }
         lastTimeToNextBeat = timeToNextBeat;
+
+        if (currBeat >= songLengthBeats - 1){
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Results");
+        }
 
         Color col;
         col = launcherPoints[0].GetComponent<SpriteRenderer>().color;
@@ -161,5 +165,13 @@ public class MainController : MonoBehaviour
         columns = config.columns;
         rows = config.rows;
         spawnBabyPeriod = config.spawnBabyPeriod;
+    }
+
+    public void IncScore(int score){
+        GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
+        int oldscore = globalVariableHolder.GetComponent<GlobalVariableHolder>().score;
+        int newscore = oldscore + score;
+        songBeatText.GetComponent<TextMeshProUGUI>().SetText(newscore.ToString());
+        globalVariableHolder.GetComponent<GlobalVariableHolder>().score = newscore;
     }
 }

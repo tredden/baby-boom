@@ -43,10 +43,10 @@ public class Routing : MonoBehaviour
         SongConfig song = new SongConfig
         {
             audioClip = song1Audio,
-            bpm = 75,
+            bpm = 33.333,
             columns = 1,
             rows = 3,
-            spawnBabyPeriod = 2,
+            spawnBabyPeriod = 1,
         };
         playSong(song);
     }
@@ -56,10 +56,24 @@ public class Routing : MonoBehaviour
         SongConfig song = new SongConfig
         {
             audioClip = song2Audio,
-            bpm = 50,
+            bpm = 75,
             columns = 1,
             rows = 3,
-            spawnBabyPeriod = 1,
+            spawnBabyPeriod = 2,
+        };
+        playSong(song);
+    }
+
+    public void song3()
+    {
+        // Set the song config
+        SongConfig song = new SongConfig
+        {
+            audioClip = song3Audio,
+            bpm = 150,
+            columns = 1,
+            rows = 3,
+            spawnBabyPeriod = 2,
         };
         playSong(song);
     }

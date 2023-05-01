@@ -7,6 +7,8 @@ public class GlobalVariableHolder : MonoBehaviour
 {
     public static GlobalVariableHolder Instance;
     public SongConfig song;
+    public int score;
+    
     // Yes, this is cursed, but it's apparently how you pass data from one scene to another.
     private void Awake()
     {

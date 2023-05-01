@@ -370,9 +370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4466a9ce393574cfba84aacb794855f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  song1Audio: {fileID: 8300000, guid: d47edd8e516e3ec4496e9f0d214ddaf6, type: 3}
-  song2Audio: {fileID: 8300000, guid: f85f38a908ec07446a2c1a5726adfc6b, type: 3}
-  song3Audio: {fileID: 8300000, guid: 9d393b613d911ab43ad45737d53bf672, type: 3}
+  song1Audio: {fileID: 8300000, guid: f85f38a908ec07446a2c1a5726adfc6b, type: 3}
+  song2Audio: {fileID: 8300000, guid: d47edd8e516e3ec4496e9f0d214ddaf6, type: 3}
+  song3Audio: {fileID: 8300000, guid: 83722acbb8050014da10f78c650ff395, type: 3}
 --- !u!224 &543185059
 RectTransform:
   m_ObjectHideFlags: 0
@@ -745,7 +745,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 677307639}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 543185058}
+        m_TargetAssemblyTypeName: Routing, Assembly-CSharp
+        m_MethodName: song3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &677307639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1503,6 +1515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24bf19de51f94c8e87f46a6589ef603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
 --- !u!4 &1366220364
 Transform:
   m_ObjectHideFlags: 0
