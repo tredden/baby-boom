@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Menu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
-    path: Assets/Scenes/Game.unity
+    path: Assets/Scenes/Level Select.unity
     guid: 80156ec920f214b50b815276ccb441c0
   - enabled: 1
     path: Assets/Scenes/Songs/Songs.unity
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Results/Results.unity
     guid: 8538981d0dae74945a2da2cd7225fca7
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: e416ad7ab95dcce468b03a24475f1080
   m_configObjects: {}
