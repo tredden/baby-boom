@@ -54,7 +54,7 @@ public class MainController : MonoBehaviour
         if (lastTimeToNextBeat < timeToNextBeat)
         {
             currBeat++;
-            if (currBeat % 2 == 0 && beat + 5 < songLengthBeats)
+            if ((currBeat) % 1 == 0 && beat + 4 < songLengthBeats)
             {
                 Spawnbaby(Mathf.CeilToInt(Mathf.Pow(Random.Range(0.0f,1.0f),2)*3));
             }
