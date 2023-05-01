@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BabyController : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class BabyController : MonoBehaviour
         startBeat = Mathf.FloorToInt((float)main.GetComponent<MainController>().GetBeat());
         endBeat = startBeat + beatsUntilLaunch;
 
+        
         bagToKey.Add(0, "a");
         bagToKey.Add(1, "s");
         bagToKey.Add(2, "d");
@@ -43,6 +45,8 @@ public class BabyController : MonoBehaviour
         bagToKey.Add(6, "z");
         bagToKey.Add(7, "x");
         bagToKey.Add(8, "c");
+
+        transform.GetChild(1).GetComponent<TextMeshPro>().text=bagToKey[bag];
 
         isFlying = false;
         //Debug.Log(startPos + " " + launchPos + " | " + startBeat + " " + endBeat);
@@ -79,7 +83,7 @@ public class BabyController : MonoBehaviour
             {
                 Destroy(gameObject);
                 target.transform.GetChild(0).GetComponent<Animator>().SetTrigger("catchBaby");
-                if (accuracy < 0.2){
+                if (accuracy < 0.1){
                     PlayWord(2);
                     main.GetComponent<MainController>().IncScore(1000);
                 } else {
@@ -92,6 +96,7 @@ public class BabyController : MonoBehaviour
         {
             if (beat > beatsUntilLaunch + 1)
             {
+                main.GetComponent<MainController>().IncScore(-100);
                 Destroy(gameObject);
                 PlayWord(0);
             }
@@ -109,15 +114,18 @@ public class BabyController : MonoBehaviour
 
             if (Input.GetKeyDown(bagToKey[bag]))
             {
-                if (accuracy < 0.5)
+                if (accuracy < 0.3)
                 {
                     launchBeat = beat;
                     Debug.Log("Launch " + launchBeat);
                     isFlying = true;
                 }
-                else
+                else if (accuracy < 0.5)
                 {
                     Debug.Log("Lose");
+                    main.GetComponent<MainController>().IncScore(-100);
+                    Destroy(gameObject);
+                    PlayWord(0);
                 }
             }
         }

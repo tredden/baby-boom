@@ -21,6 +21,8 @@ public class GlobalVariableHolder : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        showLetters = true;
     }
 
     void Update(){

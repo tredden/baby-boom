@@ -45,14 +45,15 @@ public class Routing : MonoBehaviour
         {
             audioClip = song1Audio,
             bpm = (1.0 / 3.0) * 100,
-            columns = 1,
-            rows = 3,
+            columns = 2,
+            rows = 1,
             spawnBabyPeriod = 1,
             prngSeed = 2,
             beatsPerMeasure = 3,
-            oneBabyDensity = 0.4,
-            twoBabyDensity = 0.2,
-            threeBabyDensity = 0.2,
+            oneBabyDensity = 0.7,
+            twoBabyDensity = 0.1,
+            threeBabyDensity = 0,
+            babySpawnCutoff = 4
         };
         playSong(song);
     }
@@ -68,9 +69,10 @@ public class Routing : MonoBehaviour
             spawnBabyPeriod = 1,
             prngSeed = 2,
             beatsPerMeasure = 3,
-            oneBabyDensity = 0.8,
+            oneBabyDensity = 0.5,
             twoBabyDensity = 0.4,
-            threeBabyDensity = 0.2,
+            threeBabyDensity = 0,
+            babySpawnCutoff = 4
         };
         playSong(song);
     }
@@ -86,9 +88,10 @@ public class Routing : MonoBehaviour
             spawnBabyPeriod = 1,
             prngSeed = 2,
             beatsPerMeasure = 3,
-            oneBabyDensity = 0.8,
+            oneBabyDensity = 0.4,
             twoBabyDensity = 0.4,
             threeBabyDensity = 0.2,
+            babySpawnCutoff = 4
         };
         playSong(song);
     }
@@ -104,9 +107,10 @@ public class Routing : MonoBehaviour
             spawnBabyPeriod = 2,
             prngSeed = 3,
             beatsPerMeasure = 4,
-            oneBabyDensity = 0.4,
-            twoBabyDensity = 0.2,
-            threeBabyDensity = 0.2,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0,
+            threeBabyDensity = 0,
+            babySpawnCutoff = 5
         };
         playSong(song);
     }
@@ -118,14 +122,15 @@ public class Routing : MonoBehaviour
         {
             audioClip = song2Audio,
             bpm = 75,
-            columns = 2,
+            columns = 3,
             rows = 2,
             spawnBabyPeriod = 2,
             prngSeed = 3,
             beatsPerMeasure = 4,
-            oneBabyDensity = 0.8,
-            twoBabyDensity = 0.4,
-            threeBabyDensity = 0.2,
+            oneBabyDensity = 0.7,
+            twoBabyDensity = 0.1,
+            threeBabyDensity = 0.1,
+            babySpawnCutoff = 5
         };
         playSong(song);
     }
@@ -142,9 +147,10 @@ public class Routing : MonoBehaviour
             spawnBabyPeriod = 2,
             prngSeed = 3,
             beatsPerMeasure = 4,
-            oneBabyDensity = 0.8,
-            twoBabyDensity = 0.4,
+            oneBabyDensity = 0.2,
+            twoBabyDensity = 0.5,
             threeBabyDensity = 0.2,
+            babySpawnCutoff = 5
         };
         playSong(song);
     }
@@ -156,14 +162,15 @@ public class Routing : MonoBehaviour
         {
             audioClip = song3Audio,
             bpm = 150 * (6.0/5.0),
-            columns = 1,
+            columns = 3,
             rows = 3,
             spawnBabyPeriod = 2,
             prngSeed = 4,
             beatsPerMeasure = 4,
             oneBabyDensity = 0.8,
-            twoBabyDensity = 0.4,
-            threeBabyDensity = 0.2,
+            twoBabyDensity = 0.1,
+            threeBabyDensity = 0,
+            babySpawnCutoff = 13
         };
         playSong(song);
     }
@@ -174,14 +181,15 @@ public class Routing : MonoBehaviour
         {
             audioClip = song3Audio,
             bpm = 150 * (6.0/5.0),
-            columns = 2,
-            rows = 2,
+            columns = 3,
+            rows = 3,
             spawnBabyPeriod = 2,
             prngSeed = 4,
             beatsPerMeasure = 4,
-            oneBabyDensity = 0.8,
-            twoBabyDensity = 0.4,
+            oneBabyDensity = 0.5,
+            twoBabyDensity = 0.3,
             threeBabyDensity = 0.2,
+            babySpawnCutoff = 13
         };
         playSong(song);
     }
@@ -197,9 +205,10 @@ public class Routing : MonoBehaviour
             spawnBabyPeriod = 2,
             prngSeed = 4,
             beatsPerMeasure = 4,
-            oneBabyDensity = 0.4,
-            twoBabyDensity = 0.2,
-            threeBabyDensity = 0.2,
+            oneBabyDensity = 0.1,
+            twoBabyDensity = 0.1,
+            threeBabyDensity = 0.7,
+            babySpawnCutoff = 13
         };
         playSong(song);
     }
