@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public struct SongConfig {
+    public AudioClip audioClip;
+    public double bpm;
+    public int columns;
+    public int rows;
+    public int spawnBabyPeriod;
+}
+
 public class MainController : MonoBehaviour
 {
     private AudioSource track;
     public double bpm;
-    public GameObject baby;
+    public GameObject baby; // The baby template
     public List<GameObject> spawnPoints;
     public List<GameObject> launcherPoints;
 
@@ -19,42 +27,43 @@ public class MainController : MonoBehaviour
     private int currBeat;
     private GameObject songBeatText;
     private double songLengthBeats;
-    public int rows = 1;
-    private static MainController controllerInstance;
+    private int rows = 3;
+    private int columns = 1;
+    private int spawnBabyPeriod = 2;
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         track = GetComponent<AudioSource>();
+        // Get the global variable holder game object
+        GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
+        // Get the song config from the global variable holder
+        SongConfig song = globalVariableHolder.GetComponent<GlobalVariableHolder>().song;
+        // Configure the game
+        configure(song);
+
         lastTimeToNextBeat = 0;
         currBeat = -1;
-        songBeatText = GameObject.Find("SongBeatText");
+        //songBeatText = GameObject.Find("SongBeatText");
         songLengthBeats = ToBeat(track.clip.samples);
+
+        track.Play();
+        yield return new WaitForSeconds(track.clip.length + 1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Results");
     }
 
-    // Update is called once per frame
-    void Awake(){
-        DontDestroyOnLoad (this);
-            
-        if (controllerInstance == null) {
-            controllerInstance = this;
-        } else {
-            Destroy(gameObject);
-        }
-    }
     void Update()
     {
         int currentSample = track.timeSamples;
         beat = ToBeat(currentSample);
 
         timeToNextBeat = Mathf.Ceil((float)(beat)) - beat;
-        songBeatText.GetComponent<TextMeshProUGUI>().SetText("Beat: " + beat.ToString("F2"));
-
+        //songBeatText.GetComponent<TextMeshProUGUI>().SetText("Beat: " + beat.ToString("F2"));
 
         if (lastTimeToNextBeat < timeToNextBeat)
         {
             currBeat++;
-            if ((currBeat) % 1 == 0 && beat + 4 < songLengthBeats)
+            if (currBeat % spawnBabyPeriod == 0 && beat + 5 < songLengthBeats)
             {
                 Spawnbaby(Mathf.CeilToInt(Mathf.Pow(Random.Range(0.0f,1.0f),2)*3));
             }
@@ -139,5 +148,14 @@ public class MainController : MonoBehaviour
         double sampleRate = track.clip.frequency;
         double timeInSeconds = ((double)sampleIndex) / sampleRate;
         return timeInSeconds * bpm / 60.0;
+    }
+
+    public void configure(SongConfig config)
+    {
+        track.clip = config.audioClip;
+        bpm = config.bpm;
+        columns = config.columns;
+        rows = config.rows;
+        spawnBabyPeriod = config.spawnBabyPeriod;
     }
 }
