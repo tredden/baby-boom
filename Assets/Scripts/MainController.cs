@@ -30,13 +30,14 @@ public class MainController : MonoBehaviour
     private int rows = 3;
     private int columns = 1;
     private int spawnBabyPeriod = 2;
-
+    private GameObject globalVariableHolder;
+    public GameObject accessible;
     // Start is called before the first frame update
     void Start()
     {
         track = GetComponent<AudioSource>();
         // Get the global variable holder game object
-        GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
+        globalVariableHolder = GameObject.Find("GlobalVariableHolder");
         if (globalVariableHolder != null)
         {
             // Get the song config from the global variable holder
@@ -76,6 +77,12 @@ public class MainController : MonoBehaviour
 
         if (currBeat >= songLengthBeats - 1){
             UnityEngine.SceneManagement.SceneManager.LoadScene("Results");
+        }
+
+        if (globalVariableHolder.GetComponent<GlobalVariableHolder>().showLetters){
+            accessible.SetActive(true);
+        } else {
+            accessible.SetActive(false);
         }
 
         Color col;

@@ -33,7 +33,8 @@ public class Routing : MonoBehaviour
         // Set the song on the global variable holder
         GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
         globalVariableHolder.GetComponent<GlobalVariableHolder>().song = song;
-
+        globalVariableHolder.GetComponent<GlobalVariableHolder>().score = 0;
+        
         // Show the game scene
         ShowGameScene();
     }

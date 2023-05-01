@@ -82,10 +82,10 @@ public class BabyController : MonoBehaviour
                 target.transform.GetChild(0).GetComponent<Animator>().SetTrigger("catchBaby");
                 if (accuracy < 0.2){
                     PlayWord(2);
-                    main.GetComponent<MainController>().IncScore(300);
+                    main.GetComponent<MainController>().IncScore(1000);
                 } else {
                     PlayWord(1);
-                    main.GetComponent<MainController>().IncScore(1000);
+                    main.GetComponent<MainController>().IncScore(300);
                 }
             }
         }
