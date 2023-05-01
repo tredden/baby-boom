@@ -38,7 +38,7 @@ public class Routing : MonoBehaviour
         // Show the game scene
         ShowGameScene();
     }
-    public void song1()
+    public void baby_lvl1()
     {
         // Set the song config
         SongConfig song = new SongConfig
@@ -56,7 +56,43 @@ public class Routing : MonoBehaviour
         };
         playSong(song);
     }
-    public void song2()
+    public void baby_lvl2()
+    {
+        // Set the song config
+        SongConfig song = new SongConfig
+        {
+            audioClip = song1Audio,
+            bpm = (1.0 / 3.0) * 100,
+            columns = 1,
+            rows = 3,
+            spawnBabyPeriod = 1,
+            prngSeed = 2,
+            beatsPerMeasure = 3,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
+        };
+        playSong(song);
+    }
+    public void baby_lvl3()
+    {
+        // Set the song config
+        SongConfig song = new SongConfig
+        {
+            audioClip = song1Audio,
+            bpm = (1.0 / 3.0) * 100,
+            columns = 1,
+            rows = 3,
+            spawnBabyPeriod = 1,
+            prngSeed = 2,
+            beatsPerMeasure = 3,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
+        };
+        playSong(song);
+    }
+    public void man_lvl1()
     {
         // Set the song config
         SongConfig song = new SongConfig
@@ -75,7 +111,81 @@ public class Routing : MonoBehaviour
         playSong(song);
     }
 
-    public void song3()
+    public void man_lvl2()
+    {
+        // Set the song config
+        SongConfig song = new SongConfig
+        {
+            audioClip = song2Audio,
+            bpm = 75,
+            columns = 1,
+            rows = 3,
+            spawnBabyPeriod = 2,
+            prngSeed = 3,
+            beatsPerMeasure = 4,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
+        };
+        playSong(song);
+    }
+
+    public void man_lvl3()
+    {
+        // Set the song config
+        SongConfig song = new SongConfig
+        {
+            audioClip = song2Audio,
+            bpm = 75,
+            columns = 1,
+            rows = 3,
+            spawnBabyPeriod = 2,
+            prngSeed = 3,
+            beatsPerMeasure = 4,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
+        };
+        playSong(song);
+    }
+
+    public void star_lvl1()
+    {
+        // Set the song config
+        SongConfig song = new SongConfig
+        {
+            audioClip = song3Audio,
+            bpm = 150 * (6.0/5.0),
+            columns = 1,
+            rows = 3,
+            spawnBabyPeriod = 2,
+            prngSeed = 4,
+            beatsPerMeasure = 4,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
+        };
+        playSong(song);
+    }
+    public void star_lvl2()
+    {
+        // Set the song config
+        SongConfig song = new SongConfig
+        {
+            audioClip = song3Audio,
+            bpm = 150 * (6.0/5.0),
+            columns = 1,
+            rows = 3,
+            spawnBabyPeriod = 2,
+            prngSeed = 4,
+            beatsPerMeasure = 4,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
+        };
+        playSong(song);
+    }
+    public void star_lvl3()
     {
         // Set the song config
         SongConfig song = new SongConfig
