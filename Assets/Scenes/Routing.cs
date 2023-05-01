@@ -44,10 +44,15 @@ public class Routing : MonoBehaviour
         SongConfig song = new SongConfig
         {
             audioClip = song1Audio,
-            bpm = 33.333,
+            bpm = (1.0 / 3.0) * 100,
             columns = 1,
             rows = 3,
             spawnBabyPeriod = 1,
+            prngSeed = 2,
+            beatsPerMeasure = 3,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
         };
         playSong(song);
     }
@@ -61,6 +66,11 @@ public class Routing : MonoBehaviour
             columns = 1,
             rows = 3,
             spawnBabyPeriod = 2,
+            prngSeed = 3,
+            beatsPerMeasure = 4,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
         };
         playSong(song);
     }
@@ -71,10 +81,15 @@ public class Routing : MonoBehaviour
         SongConfig song = new SongConfig
         {
             audioClip = song3Audio,
-            bpm = 150,
+            bpm = 150 * (6.0/5.0),
             columns = 1,
             rows = 3,
             spawnBabyPeriod = 2,
+            prngSeed = 4,
+            beatsPerMeasure = 4,
+            oneBabyDensity = 0.8,
+            twoBabyDensity = 0.4,
+            threeBabyDensity = 0.2,
         };
         playSong(song);
     }
