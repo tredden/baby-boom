@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song1Audio: {fileID: 8300000, guid: d47edd8e516e3ec4496e9f0d214ddaf6, type: 3}
-  song2Audio: {fileID: 8300000, guid: 9d393b613d911ab43ad45737d53bf672, type: 3}
+  song2Audio: {fileID: 8300000, guid: f85f38a908ec07446a2c1a5726adfc6b, type: 3}
   song3Audio: {fileID: 8300000, guid: 9d393b613d911ab43ad45737d53bf672, type: 3}
 --- !u!224 &543185059
 RectTransform:

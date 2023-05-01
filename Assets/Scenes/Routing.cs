@@ -56,7 +56,7 @@ public class Routing : MonoBehaviour
         SongConfig song = new SongConfig
         {
             audioClip = song2Audio,
-            bpm = 240,
+            bpm = 50,
             columns = 1,
             rows = 3,
             spawnBabyPeriod = 1,
