@@ -37,10 +37,14 @@ public class MainController : MonoBehaviour
         track = GetComponent<AudioSource>();
         // Get the global variable holder game object
         GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
-        // Get the song config from the global variable holder
-        SongConfig song = globalVariableHolder.GetComponent<GlobalVariableHolder>().song;
-        // Configure the game
-        configure(song);
+        if (globalVariableHolder != null)
+        {
+            // Get the song config from the global variable holder
+            SongConfig song = globalVariableHolder.GetComponent<GlobalVariableHolder>().song;
+            // Configure the game
+            configure(song);
+        }
+
 
         lastTimeToNextBeat = 0;
         currBeat = -1;
