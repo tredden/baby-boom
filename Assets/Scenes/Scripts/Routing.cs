@@ -63,8 +63,8 @@ public class Routing : MonoBehaviour
         {
             audioClip = song1Audio,
             bpm = (1.0 / 3.0) * 100,
-            columns = 1,
-            rows = 3,
+            columns = 2,
+            rows = 2,
             spawnBabyPeriod = 1,
             prngSeed = 2,
             beatsPerMeasure = 3,
@@ -81,7 +81,7 @@ public class Routing : MonoBehaviour
         {
             audioClip = song1Audio,
             bpm = (1.0 / 3.0) * 100,
-            columns = 1,
+            columns = 3,
             rows = 3,
             spawnBabyPeriod = 1,
             prngSeed = 2,
@@ -99,7 +99,7 @@ public class Routing : MonoBehaviour
         {
             audioClip = song2Audio,
             bpm = 75,
-            columns = 2,
+            columns = 1,
             rows = 3,
             spawnBabyPeriod = 2,
             prngSeed = 3,
@@ -118,8 +118,8 @@ public class Routing : MonoBehaviour
         {
             audioClip = song2Audio,
             bpm = 75,
-            columns = 1,
-            rows = 3,
+            columns = 2,
+            rows = 2,
             spawnBabyPeriod = 2,
             prngSeed = 3,
             beatsPerMeasure = 4,
@@ -137,7 +137,7 @@ public class Routing : MonoBehaviour
         {
             audioClip = song2Audio,
             bpm = 75,
-            columns = 1,
+            columns = 3,
             rows = 3,
             spawnBabyPeriod = 2,
             prngSeed = 3,
@@ -174,8 +174,8 @@ public class Routing : MonoBehaviour
         {
             audioClip = song3Audio,
             bpm = 150 * (6.0/5.0),
-            columns = 1,
-            rows = 3,
+            columns = 2,
+            rows = 2,
             spawnBabyPeriod = 2,
             prngSeed = 4,
             beatsPerMeasure = 4,
