@@ -15,6 +15,8 @@ public class BabyController : MonoBehaviour
     private bool isFlying;
     private GameObject target;
     private double launchBeat;
+    public List<GameObject> words;
+    private float accuracy; // in beats
 
     Dictionary<int, string> bagToKey = new Dictionary<int, string>();
     // Start is called before the first frame update
@@ -78,6 +80,13 @@ public class BabyController : MonoBehaviour
             {
                 Destroy(gameObject);
                 target.transform.GetChild(0).GetComponent<Animator>().SetTrigger("catchBaby");
+                if (accuracy < 0.2){
+                    PlayWord(2);
+                    main.GetComponent<MainController>().IncScore(300);
+                } else {
+                    PlayWord(1);
+                    main.GetComponent<MainController>().IncScore(1000);
+                }
             }
         }
         else
@@ -85,16 +94,17 @@ public class BabyController : MonoBehaviour
             if (beat > beatsToLaunch + 1)
             {
                 Destroy(gameObject);
+                PlayWord(0);
             }
             float progress = (float)beatInt / beatsToLaunch;
             transform.position = Vector2.Lerp(startPos, launchPos, progress);
 
-            float acc; // in beats
-            acc = Mathf.Abs((float)main.GetComponent<MainController>().GetBeat() - endBeat);
+            
+            accuracy = Mathf.Abs((float)main.GetComponent<MainController>().GetBeat() - endBeat);
             //Debug.Log(acc);
             if (Input.GetKeyDown(bagToKey[bag]))
             {
-                if (acc < 0.2)
+                if (accuracy < 0.5)
                 {
                     launchBeat = beat;
                     Debug.Log("Launch " + launchBeat);
@@ -106,5 +116,10 @@ public class BabyController : MonoBehaviour
                 }
             }
         }
+    }
+
+    void PlayWord(int word){
+        GameObject newword = Instantiate(words[word], target.transform);
+        newword.GetComponent<WordEffect>().word = word;
     }
 }
