@@ -15,6 +15,7 @@ public struct SongConfig
     public double twoBabyDensity;
     public double threeBabyDensity;
     public int beatsPerMeasure;
+    public int babySpawnCutoff;
 }
 
 public class MainController : MonoBehaviour
@@ -32,6 +33,8 @@ public class MainController : MonoBehaviour
     private int currBeat;
     private GameObject songBeatText;
     private double songLengthBeats;
+    private GameObject globalVariableHolder;
+    //public GameObject accessible;
     private int spawnUntil;
     private SongConfig song;
     private int[] babiesEachBeat;
@@ -41,20 +44,43 @@ public class MainController : MonoBehaviour
     {
         track = GetComponent<AudioSource>();
         // Get the global variable holder game object
-        GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
+        globalVariableHolder = GameObject.Find("GlobalVariableHolder");
         if (globalVariableHolder != null)
         {
             song = globalVariableHolder.GetComponent<GlobalVariableHolder>().song;
             track.clip = song.audioClip;
         }
 
+        if(song.columns<3){
+            GameObject.Find("LeftConveyor").SetActive(false);
+            bagPoints[0].SetActive(false);
+            bagPoints[3].SetActive(false);
+            bagPoints[6].SetActive(false);
+            if(song.columns<2){
+                GameObject.Find("RightConveyor").SetActive(false);
+                bagPoints[2].SetActive(false);
+                bagPoints[5].SetActive(false);
+                bagPoints[8].SetActive(false);
+            }
+        }
+
+        if(song.rows<3){
+            bagPoints[6].SetActive(false);
+            bagPoints[7].SetActive(false);
+            bagPoints[8].SetActive(false);
+            if(song.rows<2){
+                bagPoints[3].SetActive(false);
+                bagPoints[4].SetActive(false);
+                bagPoints[5].SetActive(false);
+            }
+        }
         lastTimeToNextBeat = 0;
         currBeat = -1;
         songBeatText = GameObject.Find("Score");
         songLengthBeats = ToBeat(track.clip.samples);
 
         // Only spawn babies if they will reach the end in time.
-        int timeToReachEnd = song.beatsPerMeasure + 1;
+        int timeToReachEnd = song.babySpawnCutoff;
         spawnUntil = Mathf.FloorToInt((float)songLengthBeats) - timeToReachEnd;
         // Create a PRNG with the seed from the song config
         System.Random prng = new System.Random(song.prngSeed);
@@ -97,7 +123,7 @@ public class MainController : MonoBehaviour
     {
         int currentSample = track.timeSamples;
         beat = ToBeat(currentSample);
-
+        
         timeToNextBeat = Mathf.Ceil((float)(beat)) - beat;
         //songBeatText.GetComponent<TextMeshProUGUI>().SetText("Beat: " + beat.ToString("F2"));
 
@@ -110,12 +136,34 @@ public class MainController : MonoBehaviour
                 SpawnBabies(count);
                 //SpawnBabies(Mathf.CeilToInt(Mathf.Pow(Random.Range(0.0f,1.0f),2)*3));
             }
+
+            GameObject.Find("MidConveyor").transform.GetChild(2).GetComponent<Animator>().SetTrigger("Convey");
+            if(song.columns > 1){
+                GameObject.Find("RightConveyor").transform.GetChild(2).GetComponent<Animator>().SetTrigger("Convey");
+                if(song.columns > 2){
+                    GameObject.Find("LeftConveyor").transform.GetChild(2).GetComponent<Animator>().SetTrigger("Convey");
+                }
+            }
         }
         lastTimeToNextBeat = timeToNextBeat;
 
-        if (currentSample >= track.clip.samples - 1)
+        if (currBeat > songLengthBeats - 1)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Results");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Songs");
+        }
+
+        if (globalVariableHolder.GetComponent<GlobalVariableHolder>().showLetters){
+            foreach(GameObject letter in GameObject.FindGameObjectsWithTag("KeyOverlay")){
+                letter.GetComponent<TextMeshPro>().enabled=true;
+            }
+        } else {
+            foreach(GameObject letter in GameObject.FindGameObjectsWithTag("KeyOverlay")){
+                letter.GetComponent<TextMeshPro>().enabled=false;
+            }
         }
 
         animateLauncher();
@@ -123,41 +171,44 @@ public class MainController : MonoBehaviour
 
     private void animateLauncher()
     {
-        Color col;
-        col = launcherPoints[0].GetComponent<SpriteRenderer>().color;
+        // Color col;
+        // col = launcherPoints[0].GetComponent<SpriteRenderer>().color;
 
-        if (Input.GetKeyDown("a"))
+        if (Input.GetKeyDown("a") || Input.GetKeyDown("q") || Input.GetKeyDown("z"))
         {
-            col.r = 0.8f;
+            //col.r = 0.8f;
+            launcherPoints[0].transform.GetChild(0).GetComponent<Animator>().SetTrigger("Bounce");
         }
 
-        if (Input.GetKeyUp("a"))
-        {
-            col.r = 0.2f;
-        }
-        launcherPoints[0].GetComponent<SpriteRenderer>().color = col;
+        // if (Input.GetKeyUp("a"))
+        // {
+        //     col.r = 0.2f;
+        // }
+        // launcherPoints[0].GetComponent<SpriteRenderer>().color = col;
 
-        col = launcherPoints[1].GetComponent<SpriteRenderer>().color;
-        if (Input.GetKeyDown("s"))
+        //col = launcherPoints[1].GetComponent<SpriteRenderer>().color;
+        if (Input.GetKeyDown("s") || Input.GetKeyDown("w") || Input.GetKeyDown("x"))
         {
-            col.r = 0.8f;
+            // col.r = 0.8f;
+            launcherPoints[1].transform.GetChild(0).GetComponent<Animator>().SetTrigger("Bounce");
         }
-        if (Input.GetKeyUp("s"))
-        {
-            col.r = 0.2f;
-        }
-        launcherPoints[1].GetComponent<SpriteRenderer>().color = col;
+        // if (Input.GetKeyUp("s"))
+        // {
+        //     col.r = 0.2f;
+        // }
+        // launcherPoints[1].GetComponent<SpriteRenderer>().color = col;
 
-        col = launcherPoints[2].GetComponent<SpriteRenderer>().color;
-        if (Input.GetKeyDown("d"))
+        // col = launcherPoints[2].GetComponent<SpriteRenderer>().color;
+        if (Input.GetKeyDown("d") || Input.GetKeyDown("e") || Input.GetKeyDown("c"))
         {
-            col.r = 0.8f;
+            // col.r = 0.8f;
+            launcherPoints[2].transform.GetChild(0).GetComponent<Animator>().SetTrigger("Bounce");
         }
-        if (Input.GetKeyUp("d"))
-        {
-            col.r = 0.2f;
-        }
-        launcherPoints[2].GetComponent<SpriteRenderer>().color = col;
+        // if (Input.GetKeyUp("d"))
+        // {
+        //     col.r = 0.2f;
+        // }
+        // launcherPoints[2].GetComponent<SpriteRenderer>().color = col;
     }
 
     private void SpawnInCol(int col)
