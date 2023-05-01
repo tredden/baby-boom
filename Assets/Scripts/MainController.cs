@@ -65,14 +65,15 @@ public class MainController : MonoBehaviour
         babiesEachBeat = new int[System.Math.Max(
                 Mathf.CeilToInt(spawnUntil / song.spawnBabyPeriod), 0) + 1];
 
-        System.Array.Fill(babiesEachBeat, 1, 0,
-                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.oneBabyDensity)));
+        int onesEnd = Mathf.FloorToInt((float)(babiesEachBeat.Length * song.oneBabyDensity));
+        System.Array.Fill(babiesEachBeat, 1, 0, onesEnd);
 
-        System.Array.Fill(babiesEachBeat, 2, 0,
-                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.twoBabyDensity)));
+        int twosCount = Mathf.FloorToInt((float)(babiesEachBeat.Length * song.twoBabyDensity));
+        System.Array.Fill(babiesEachBeat, 2, onesEnd, twosCount);
 
-        System.Array.Fill(babiesEachBeat, 3, 0,
-                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.threeBabyDensity)));
+        int twosEnd = twosCount + onesEnd;
+        int threesCount = Mathf.FloorToInt((float)(babiesEachBeat.Length * song.threeBabyDensity));
+        System.Array.Fill(babiesEachBeat, 3, twosEnd, threesCount);
 
         shuffle(babiesEachBeat, prng);
         Debug.Log("Pattern: " + string.Join(" ", babiesEachBeat));
@@ -169,6 +170,7 @@ public class MainController : MonoBehaviour
 
     private void SpawnInCol(int col)
     {
+        // Rows are arranged in the scene such that zero is in the middle.
         int row = Random.Range(0, song.rows);
         int bag = row * 3 + col;
         GameObject newbaby = Instantiate(baby, spawnPoints[col]
@@ -180,21 +182,40 @@ public class MainController : MonoBehaviour
 
     void SpawnBabies(int count)
     {
-        if (count == 3)
+        if (song.columns == 1)
         {
-            SpawnInCol(0);
             SpawnInCol(1);
-            SpawnInCol(2);
         }
-        else if (count == 2)
+        else if (song.columns == 2)
         {
-            int skipCol = Random.Range(0, 3);
-            SpawnInCol((skipCol + 1) % 3);
-            SpawnInCol((skipCol + 2) % 3);
+            if (count == 1)
+            {
+                SpawnInCol(Random.Range(1, 3));
+            }
+            else if (count >= 2)
+            {
+                SpawnInCol(1);
+                SpawnInCol(2);
+            }
         }
-        else if (count == 1)
+        else
         {
-            SpawnInCol(Random.Range(0, 3));
+            if (count == 3)
+            {
+                SpawnInCol(0);
+                SpawnInCol(1);
+                SpawnInCol(2);
+            }
+            else if (count == 2)
+            {
+                int skipCol = Random.Range(0, 3);
+                SpawnInCol((skipCol + 1) % 3);
+                SpawnInCol((skipCol + 2) % 3);
+            }
+            else if (count == 1)
+            {
+                SpawnInCol(Random.Range(0, 3));
+            }
         }
     }
 

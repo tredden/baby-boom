@@ -50,8 +50,8 @@ public class Routing : MonoBehaviour
             spawnBabyPeriod = 1,
             prngSeed = 2,
             beatsPerMeasure = 3,
-            oneBabyDensity = 0.8,
-            twoBabyDensity = 0.4,
+            oneBabyDensity = 0.4,
+            twoBabyDensity = 0.2,
             threeBabyDensity = 0.2,
         };
         playSong(song);
@@ -99,13 +99,13 @@ public class Routing : MonoBehaviour
         {
             audioClip = song2Audio,
             bpm = 75,
-            columns = 1,
+            columns = 2,
             rows = 3,
             spawnBabyPeriod = 2,
             prngSeed = 3,
             beatsPerMeasure = 4,
-            oneBabyDensity = 0.8,
-            twoBabyDensity = 0.4,
+            oneBabyDensity = 0.4,
+            twoBabyDensity = 0.2,
             threeBabyDensity = 0.2,
         };
         playSong(song);
@@ -192,13 +192,13 @@ public class Routing : MonoBehaviour
         {
             audioClip = song3Audio,
             bpm = 150 * (6.0/5.0),
-            columns = 1,
+            columns = 3,
             rows = 3,
             spawnBabyPeriod = 2,
             prngSeed = 4,
             beatsPerMeasure = 4,
-            oneBabyDensity = 0.8,
-            twoBabyDensity = 0.4,
+            oneBabyDensity = 0.4,
+            twoBabyDensity = 0.2,
             threeBabyDensity = 0.2,
         };
         playSong(song);
