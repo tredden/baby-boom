@@ -162,6 +162,7 @@ public class MainController : MonoBehaviour
 
     private void SpawnInCol(int col)
     {
+        // Rows are arranged in the scene such that zero is in the middle.
         int row = Random.Range(0, song.rows);
         int bag = row * 3 + col;
         GameObject newbaby = Instantiate(baby, spawnPoints[col]
@@ -173,21 +174,40 @@ public class MainController : MonoBehaviour
 
     void SpawnBabies(int count)
     {
-        if (count == 3)
+        if (song.columns == 1)
         {
-            SpawnInCol(0);
             SpawnInCol(1);
-            SpawnInCol(2);
         }
-        else if (count == 2)
+        else if (song.columns == 2)
         {
-            int skipCol = Random.Range(0, 3);
-            SpawnInCol((skipCol + 1) % 3);
-            SpawnInCol((skipCol + 2) % 3);
+            if (count == 1)
+            {
+                SpawnInCol(Random.Range(1, 3));
+            }
+            else if (count >= 2)
+            {
+                SpawnInCol(1);
+                SpawnInCol(2);
+            }
         }
-        else if (count == 1)
+        else
         {
-            SpawnInCol(Random.Range(0, 3));
+            if (count == 3)
+            {
+                SpawnInCol(0);
+                SpawnInCol(1);
+                SpawnInCol(2);
+            }
+            else if (count == 2)
+            {
+                int skipCol = Random.Range(0, 3);
+                SpawnInCol((skipCol + 1) % 3);
+                SpawnInCol((skipCol + 2) % 3);
+            }
+            else if (count == 1)
+            {
+                SpawnInCol(Random.Range(0, 3));
+            }
         }
     }
 

@@ -95,12 +95,18 @@ public class BabyController : MonoBehaviour
                 Destroy(gameObject);
                 PlayWord(0);
             }
-            float progress = (float)beatInt / beatsUntilLaunch;
-            transform.position = Vector2.Lerp(startPos, launchPos, progress);
+            float discreteProgress = (float)beatInt / beatsUntilLaunch;
 
-            
+            //f(x\in[0,1]) = .5-.5*cos(x*π)
+            float x = Mathf.Lerp(0, 1, (float)(beat - beatInt) * 32);
+            float easing = (float)(0.5 - 0.5 * Mathf.Cos(x * Mathf.PI));
+            float smooth = 1 - easing;
+            float smoothProgress = discreteProgress - smooth / beatsUntilLaunch;
+
+            transform.position = Vector2.Lerp(startPos, launchPos, smoothProgress);
+
             accuracy = Mathf.Abs((float)main.GetComponent<MainController>().GetBeat() - endBeat);
-            //Debug.Log(acc);
+
             if (Input.GetKeyDown(bagToKey[bag]))
             {
                 if (accuracy < 0.5)
