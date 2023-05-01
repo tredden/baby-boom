@@ -24,7 +24,7 @@ public class BabyController : MonoBehaviour
         MainController mainController = main.GetComponent<MainController>();
         startPos = transform.position;
         launchPos = mainController.launcherPoints[bag % 3].transform.position;
-        beatsToLaunch = 4;
+        beatsToLaunch = 3;
         inBagBeat = beatsToLaunch + 1;
         target = mainController.bagPoints[bag];
         transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = 
