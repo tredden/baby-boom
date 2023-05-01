@@ -63,14 +63,15 @@ public class MainController : MonoBehaviour
         babiesEachBeat = new int[System.Math.Max(
                 Mathf.CeilToInt(spawnUntil / song.spawnBabyPeriod), 0) + 1];
 
-        System.Array.Fill(babiesEachBeat, 1, 0,
-                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.oneBabyDensity)));
+        int onesEnd = Mathf.FloorToInt((float)(babiesEachBeat.Length * song.oneBabyDensity));
+        System.Array.Fill(babiesEachBeat, 1, 0, onesEnd);
 
-        System.Array.Fill(babiesEachBeat, 2, 0,
-                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.twoBabyDensity)));
+        int twosCount = Mathf.FloorToInt((float)(babiesEachBeat.Length * song.twoBabyDensity));
+        System.Array.Fill(babiesEachBeat, 2, onesEnd, twosCount);
 
-        System.Array.Fill(babiesEachBeat, 3, 0,
-                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.threeBabyDensity)));
+        int twosEnd = twosCount + onesEnd;
+        int threesCount = Mathf.FloorToInt((float)(babiesEachBeat.Length * song.threeBabyDensity));
+        System.Array.Fill(babiesEachBeat, 3, twosEnd, threesCount);
 
         shuffle(babiesEachBeat, prng);
         Debug.Log("Pattern: " + string.Join(" ", babiesEachBeat));
