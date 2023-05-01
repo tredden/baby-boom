@@ -8,8 +8,7 @@ public class BabyController : MonoBehaviour
     private Vector2 startPos;
     private Vector2 launchPos;
     public int bag;
-    private int beatsToLaunch;
-    private int inBagBeat;
+    public int beatsUntilLaunch;
     private float startBeat;
     private float endBeat;
     private bool isFlying;
@@ -26,13 +25,12 @@ public class BabyController : MonoBehaviour
         MainController mainController = main.GetComponent<MainController>();
         startPos = transform.position;
         launchPos = mainController.launcherPoints[bag % 3].transform.position;
-        beatsToLaunch = 3;
-        inBagBeat = beatsToLaunch + 1;
+
         target = mainController.bagPoints[bag];
         transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = 
             target.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color;
         startBeat = Mathf.FloorToInt((float)main.GetComponent<MainController>().GetBeat());
-        endBeat = startBeat + beatsToLaunch;
+        endBeat = startBeat + beatsUntilLaunch;
 
         bagToKey.Add(0, "a");
         bagToKey.Add(1, "s");
@@ -66,6 +64,7 @@ public class BabyController : MonoBehaviour
         {
             // 0 at launchBeat
             // 1 at inBagBeat
+            int inBagBeat = beatsUntilLaunch + 1;
             float flyProgress = (float)((beat - launchBeat) / (inBagBeat - launchBeat));
             if (float.IsNaN(flyProgress)) {
                 Debug.Log("It's nan" + beat + " " + launchBeat + " " + inBagBeat);
@@ -91,12 +90,12 @@ public class BabyController : MonoBehaviour
         }
         else
         {
-            if (beat > beatsToLaunch + 1)
+            if (beat > beatsUntilLaunch + 1)
             {
                 Destroy(gameObject);
                 PlayWord(0);
             }
-            float progress = (float)beatInt / beatsToLaunch;
+            float progress = (float)beatInt / beatsUntilLaunch;
             transform.position = Vector2.Lerp(startPos, launchPos, progress);
 
             

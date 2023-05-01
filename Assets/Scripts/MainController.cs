@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public struct SongConfig {
+public struct SongConfig
+{
+    public int prngSeed;
     public AudioClip audioClip;
     public double bpm;
     public int columns;
     public int rows;
     public int spawnBabyPeriod;
+    public double oneBabyDensity;
+    public double twoBabyDensity;
+    public double threeBabyDensity;
+    public int beatsPerMeasure;
 }
 
 public class MainController : MonoBehaviour
 {
     private AudioSource track;
-    public double bpm;
     public GameObject baby; // The baby template
+
     public List<GameObject> spawnPoints;
     public List<GameObject> launcherPoints;
-
     public List<GameObject> bagPoints;
 
     private double lastTimeToNextBeat;
@@ -27,9 +32,9 @@ public class MainController : MonoBehaviour
     private int currBeat;
     private GameObject songBeatText;
     private double songLengthBeats;
-    private int rows = 3;
-    private int columns = 1;
-    private int spawnBabyPeriod = 2;
+    private int spawnUntil;
+    private SongConfig song;
+    private int[] babiesEachBeat;
 
     // Start is called before the first frame update
     void Start()
@@ -39,21 +44,54 @@ public class MainController : MonoBehaviour
         GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
         if (globalVariableHolder != null)
         {
-            // Get the song config from the global variable holder
-            SongConfig song = globalVariableHolder.GetComponent<GlobalVariableHolder>().song;
-            // Configure the game
-            configure(song);
+            song = globalVariableHolder.GetComponent<GlobalVariableHolder>().song;
+            track.clip = song.audioClip;
         }
-
 
         lastTimeToNextBeat = 0;
         currBeat = -1;
         songBeatText = GameObject.Find("Score");
         songLengthBeats = ToBeat(track.clip.samples);
 
+        // Only spawn babies if they will reach the end in time.
+        int timeToReachEnd = song.beatsPerMeasure + 1;
+        spawnUntil = Mathf.FloorToInt((float)songLengthBeats) - timeToReachEnd;
+        // Create a PRNG with the seed from the song config
+        System.Random prng = new System.Random(song.prngSeed);
+
+        // Initialize an array of the number of babies to spawn on each beat
+        Debug.Log(spawnUntil + " " + song.spawnBabyPeriod);
+        babiesEachBeat = new int[System.Math.Max(
+                Mathf.CeilToInt(spawnUntil / song.spawnBabyPeriod), 0) + 1];
+
+        System.Array.Fill(babiesEachBeat, 1, 0,
+                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.oneBabyDensity)));
+
+        System.Array.Fill(babiesEachBeat, 2, 0,
+                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.twoBabyDensity)));
+
+        System.Array.Fill(babiesEachBeat, 3, 0,
+                          Mathf.FloorToInt((float)(babiesEachBeat.Length * song.threeBabyDensity)));
+        
+        Debug.Log(string.Join(" ", babiesEachBeat));
+        shuffle(babiesEachBeat, prng);
+        Debug.Log(string.Join(" ", babiesEachBeat));
+
         track.Play();
-        
-        
+    }
+
+    void shuffle<T>(T[] array, System.Random prng)
+    {
+        // Fisher-Yates
+        for (int i = 1; i < array.Length; i++)
+        {
+            int index = prng.Next(0, array.Length - i);
+            int dest = array.Length - i;
+
+            T tmp = array[dest];
+            array[dest] = array[index];
+            array[index] = tmp;
+        }
     }
 
     void Update()
@@ -67,17 +105,26 @@ public class MainController : MonoBehaviour
         if (lastTimeToNextBeat < timeToNextBeat)
         {
             currBeat++;
-            if (currBeat % spawnBabyPeriod == 0 && beat + 5 < songLengthBeats)
+            if (currBeat % song.spawnBabyPeriod == 0 && beat < spawnUntil)
             {
-                Spawnbaby(Mathf.CeilToInt(Mathf.Pow(Random.Range(0.0f,1.0f),2)*3));
+                int count = babiesEachBeat[currBeat / song.spawnBabyPeriod];
+                Debug.Log(count);
+                SpawnBabies(count);
+                //SpawnBabies(Mathf.CeilToInt(Mathf.Pow(Random.Range(0.0f,1.0f),2)*3));
             }
         }
         lastTimeToNextBeat = timeToNextBeat;
 
-        if (currBeat >= songLengthBeats - 1){
+        if (currentSample >= track.clip.samples - 1)
+        {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Results");
         }
 
+        animateLauncher();
+    }
+
+    private void animateLauncher()
+    {
         Color col;
         col = launcherPoints[0].GetComponent<SpriteRenderer>().color;
 
@@ -117,14 +164,16 @@ public class MainController : MonoBehaviour
 
     private void SpawnInCol(int col)
     {
-        int row = Random.Range(0, rows);
+        int row = Random.Range(0, song.rows);
         int bag = row * 3 + col;
         GameObject newbaby = Instantiate(baby, spawnPoints[col]
                                         .transform.position, Quaternion.identity);
-        newbaby.GetComponent<BabyController>().bag = bag;
+        BabyController controller = newbaby.GetComponent<BabyController>();
+        controller.bag = bag;
+        controller.beatsUntilLaunch = song.beatsPerMeasure;
     }
 
-    void Spawnbaby(int count)
+    void SpawnBabies(int count)
     {
         if (count == 3)
         {
@@ -137,7 +186,8 @@ public class MainController : MonoBehaviour
             int skipCol = Random.Range(0, 3);
             SpawnInCol((skipCol + 1) % 3);
             SpawnInCol((skipCol + 2) % 3);
-        } else
+        }
+        else if (count == 1)
         {
             SpawnInCol(Random.Range(0, 3));
         }
@@ -155,19 +205,11 @@ public class MainController : MonoBehaviour
     {
         double sampleRate = track.clip.frequency;
         double timeInSeconds = ((double)sampleIndex) / sampleRate;
-        return timeInSeconds * bpm / 60.0;
+        return timeInSeconds * song.bpm / 60.0;
     }
 
-    public void configure(SongConfig config)
+    public void IncScore(int score)
     {
-        track.clip = config.audioClip;
-        bpm = config.bpm;
-        columns = config.columns;
-        rows = config.rows;
-        spawnBabyPeriod = config.spawnBabyPeriod;
-    }
-
-    public void IncScore(int score){
         GameObject globalVariableHolder = GameObject.Find("GlobalVariableHolder");
         int oldscore = globalVariableHolder.GetComponent<GlobalVariableHolder>().score;
         int newscore = oldscore + score;
