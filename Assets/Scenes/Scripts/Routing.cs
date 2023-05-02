@@ -110,7 +110,8 @@ public class Routing : MonoBehaviour
             oneBabyDensity = 0.8,
             twoBabyDensity = 0,
             threeBabyDensity = 0,
-            babySpawnCutoff = 5
+            babySpawnCutoff = 5,
+            beatOffset = -0.15,
         };
         playSong(song);
     }
@@ -130,7 +131,8 @@ public class Routing : MonoBehaviour
             oneBabyDensity = 0.7,
             twoBabyDensity = 0.1,
             threeBabyDensity = 0.1,
-            babySpawnCutoff = 5
+            babySpawnCutoff = 5,
+            beatOffset = -0.15,
         };
         playSong(song);
     }
@@ -150,7 +152,8 @@ public class Routing : MonoBehaviour
             oneBabyDensity = 0.2,
             twoBabyDensity = 0.5,
             threeBabyDensity = 0.2,
-            babySpawnCutoff = 5
+            babySpawnCutoff = 5,
+            beatOffset = -0.15,
         };
         playSong(song);
     }
@@ -170,7 +173,8 @@ public class Routing : MonoBehaviour
             oneBabyDensity = 0.8,
             twoBabyDensity = 0.1,
             threeBabyDensity = 0,
-            babySpawnCutoff = 13
+            babySpawnCutoff = 13,
+            beatOffset = -0.45,
         };
         playSong(song);
     }
@@ -189,7 +193,8 @@ public class Routing : MonoBehaviour
             oneBabyDensity = 0.5,
             twoBabyDensity = 0.3,
             threeBabyDensity = 0.2,
-            babySpawnCutoff = 13
+            babySpawnCutoff = 13,
+            beatOffset = -0.45,
         };
         playSong(song);
     }
@@ -208,7 +213,8 @@ public class Routing : MonoBehaviour
             oneBabyDensity = 0.1,
             twoBabyDensity = 0.1,
             threeBabyDensity = 0.7,
-            babySpawnCutoff = 13
+            babySpawnCutoff = 13,
+            beatOffset = -0.45,
         };
         playSong(song);
     }

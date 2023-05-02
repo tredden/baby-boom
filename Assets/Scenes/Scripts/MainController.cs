@@ -16,6 +16,7 @@ public struct SongConfig
     public double threeBabyDensity;
     public int beatsPerMeasure;
     public int babySpawnCutoff;
+    public double beatOffset; // Offset of the first beat in beats
 }
 
 public class MainController : MonoBehaviour
@@ -274,7 +275,8 @@ public class MainController : MonoBehaviour
     {
         double sampleRate = track.clip.frequency;
         double timeInSeconds = ((double)sampleIndex) / sampleRate;
-        return timeInSeconds * song.bpm / 60.0;
+        double b = timeInSeconds * song.bpm / 60.0;
+        return b + song.beatOffset;
     }
 
     public void IncScore(int score)
