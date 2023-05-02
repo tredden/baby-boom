@@ -31,5 +31,6 @@ public class HelperButton : MonoBehaviour
 
     public void ToggleHelper(){
         globalVariableHolder.GetComponent<GlobalVariableHolder>().showLetters = !globalVariableHolder.GetComponent<GlobalVariableHolder>().showLetters;
+        
     }
 }

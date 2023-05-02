@@ -16,6 +16,7 @@ public class BabyController : MonoBehaviour
     private GameObject target;
     private double launchBeat;
     public List<GameObject> words;
+    public List<Sprite> sprites;
     private float accuracy; // in beats
 
     Dictionary<int, string> bagToKey = new Dictionary<int, string>();
@@ -46,7 +47,8 @@ public class BabyController : MonoBehaviour
         bagToKey.Add(7, "x");
         bagToKey.Add(8, "c");
 
-        transform.GetChild(1).GetComponent<TextMeshPro>().text=bagToKey[bag];
+        transform.GetChild(1).GetComponent<SpriteRenderer>().sprite=sprites[bag];
+        //transform.GetChild(1).GetChild(0).GetComponent<TextMeshPro>().text=bagToKey[bag];
 
         isFlying = false;
         //Debug.Log(startPos + " " + launchPos + " | " + startBeat + " " + endBeat);

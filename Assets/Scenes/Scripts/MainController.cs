@@ -158,11 +158,11 @@ public class MainController : MonoBehaviour
 
         if (globalVariableHolder.GetComponent<GlobalVariableHolder>().showLetters){
             foreach(GameObject letter in GameObject.FindGameObjectsWithTag("KeyOverlay")){
-                letter.GetComponent<TextMeshPro>().enabled=true;
+                letter.GetComponent<SpriteRenderer>().enabled=true;
             }
         } else {
             foreach(GameObject letter in GameObject.FindGameObjectsWithTag("KeyOverlay")){
-                letter.GetComponent<TextMeshPro>().enabled=false;
+                letter.GetComponent<SpriteRenderer>().enabled=false;
             }
         }
 
